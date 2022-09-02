@@ -1,0 +1,23 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+build:
+  artifacts:
+  - image: app
+    ko:
+      dependencies:
+        paths:
+        - '**/*.go'
+        - hello.txt
+      dir: .
+      env:
+      - CGO_ENABLED=0
+      flags:
+      - -buildvcs=false
+      - -trimpath
+      - -v
+      ldflags:
+      - -buildid=
+      - -extldflags="static"
+      - -s
+      - -w
+      main: .
